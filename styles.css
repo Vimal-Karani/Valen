@@ -1,0 +1,873 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Dancing+Script:wght@500;600&family=Great+Vibes&display=swap');
+
+:root {
+  --bg-1: #20040f;
+  --bg-2: #4f1027;
+  --bg-3: #7b1f3f;
+  --soft-pink: #ffd7e5;
+  --cream: #fff4fa;
+  --maroon: #860d2f;
+  --shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Cormorant Garamond", "Segoe UI", serif;
+  color: var(--cream);
+  background: radial-gradient(circle at 18% 10%, var(--bg-3) 0%, var(--bg-2) 38%, var(--bg-1) 100%);
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.background-overlay,
+.falling-flowers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.background-overlay {
+  background: radial-gradient(circle at 80% 80%, rgba(255, 141, 185, 0.15), transparent 55%);
+}
+
+.falling-flowers { overflow: hidden; }
+
+.falling-item {
+  position: absolute;
+  top: -12vh;
+  opacity: 0.6;
+  animation: fallDown linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes fallDown {
+  0% { transform: translate3d(0, -12vh, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  88% { opacity: 0.78; }
+  100% { transform: translate3d(var(--drift), 115vh, 0) rotate(360deg); opacity: 0; }
+}
+
+@keyframes yesGlow {
+  0% {
+    box-shadow:
+      0 0 0 rgba(255, 79, 144, 0.0),
+      0 10px 28px rgba(255, 88, 150, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 22px rgba(255, 79, 144, 0.55),
+      0 14px 36px rgba(255, 88, 150, 0.65);
+  }
+  100% {
+    box-shadow:
+      0 0 0 rgba(255, 79, 144, 0.0),
+      0 10px 28px rgba(255, 88, 150, 0.4);
+  }
+}
+
+@keyframes heartReveal {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1.35) translateY(-4px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.6) translateY(-28px);
+    opacity: 0;
+  }
+}
+
+@keyframes heartSparkle {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+
+.intro-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: opacity 1.6s ease;
+}
+
+.intro-layer.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.envelope {
+  position: relative;
+  width: min(82vw, 680px);
+  aspect-ratio: 1.6 / 1;
+  border: none;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.35));
+  overflow: visible;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* ❤️ Heart stamp */
+/* ❤️ Heart wax seal — integrated with envelope */
+/* ❤️ Heart wax seal — integrated & correctly sized */
+.heart-stamp {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  transform: translate(-50%, -50%) scale(1.25);
+  letter-spacing: -0.05em;
+
+  /* ⬆️ REAL size increase */
+  font-size: 4.6rem;
+
+  z-index: 6;
+  pointer-events: none;
+
+  /* Matte, pressed-on-paper look */
+  filter: none;
+  opacity: 0.96;
+
+  /* Pressed wax shadow (not floating) */
+  text-shadow:
+    0 1px 1px rgba(120, 30, 50, 0.28),
+    0 4px 8px rgba(120, 30, 50, 0.38);
+
+  transition:
+    transform 0.9s ease,
+    opacity 0.9s ease;
+}
+
+/* Released / unsealed */
+.heart-stamp.release {
+  opacity: 0;
+  transform: translate(-50%, -62%) scale(0.85);
+}
+
+
+@keyframes waxBreathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(1.45); }
+  50% { transform: translate(-50%, -50%) scale(1.48); }
+}
+
+.heart-stamp:not(.release) {
+  animation: waxBreathe 4.5s ease-in-out infinite;
+}
+
+
+
+.envelope-back {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+}
+
+.envelope-letter {
+  position: absolute;
+  left: 0;
+  z-index: 2;
+}
+
+.envelope-front {
+  position: absolute;
+  left: 0;
+  z-index: 3;
+}
+
+.envelope-flap {
+  position: absolute;
+  left: 0;
+  z-index: 4; /* 🔑 ALWAYS ABOVE front */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+
+.envelope-back {
+  inset: 8% 0 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #f7e8d7, #e9d7c1);
+}
+
+.envelope-letter {
+  width: 78%;
+  height: 74%;
+  left: 11%;
+  top: 14%;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fff, #f9f3ea);
+  box-shadow: inset 0 0 0 1px rgba(140, 90, 52, 0.15);
+  transition: transform 1.6s cubic-bezier(0.16, 0.84, 0.24, 1), opacity 1.2s ease;
+}
+
+.envelope-front {
+  width: 100%;
+  height: 64%;
+  bottom: 0;
+  clip-path: polygon(0 0, 50% 64%, 100% 0, 100% 100%, 0 100%);
+  background: linear-gradient(180deg, #f0ddc8, #dcc0a4);
+}
+
+.envelope-flap {
+  width: 100%;
+  height: 56%;
+  top: 8%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(180deg, #e3c5a5, #d3af8a);
+  transform-origin: top center;
+  transition: transform 2s cubic-bezier(0.16, 0.84, 0.24, 1);
+}
+
+.envelope.flap-open .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.envelope.flap-open .envelope-letter {
+  transform: translateY(-18%) scale(1.02);
+}
+
+
+.intro-hint { margin: 0; font-size: 1.05rem; color: #ffe7f1; }
+
+
+.letter-message {
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 640px) {
+  .letter-panel {
+    width: 96vw;
+    padding: 1.6rem 1.2rem;
+  }
+}
+
+
+.letter-panel {
+  position: relative;
+  z-index: 20;
+
+  /* 🔑 HARD STOP background blending */
+  isolation: isolate;
+  background-color: #fff6e9;
+
+  /* paper lines texture */
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(120, 80, 60, 0.06) 0,
+    rgba(120, 80, 60, 0.06) 1px,
+    transparent 1px,
+    transparent 5px
+  );
+
+  width: min(96vw, 1040px); /* wider letter */
+
+  margin: 5vh auto 2rem;
+  padding: 2rem 1.8rem 2.2rem;
+  border-radius: 22px;
+
+  color: #5b2b3a;
+  box-shadow: 
+    0 18px 35px rgba(30, 12, 18, 0.22),
+    0 8px 14px rgba(30, 12, 18, 0.18);
+
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition: opacity 1.2s ease 0.1s, transform 1.2s ease 0.1s;
+
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+}
+
+
+.letter-panel.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.letter-panel:hover {
+  box-shadow: 0 22px 40px rgba(30, 12, 18, 0.25), 0 10px 18px rgba(30, 12, 18, 0.2);
+}
+
+.kicker,
+.main-title,
+.subtitle {
+  text-align: center;
+}
+
+.dedication {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #7b2c43;
+}
+
+.kicker {
+  margin: 0;
+  color: #7b2c43;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.85rem;
+}
+
+.main-title {
+  margin: 0.6rem 0 0.5rem;
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  line-height: 1.1;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 209, 229, 0.4);
+}
+
+.main-title.compact { margin-bottom: 0.2rem; }
+
+.rose { color: var(--maroon); text-shadow: 0 0 12px rgba(133, 16, 52, 0.45); }
+.accent { display: block; color: #b14a66; font-size: 1.6rem; margin-top: 0.5rem; font-weight: 600; }
+.subtitle { margin: 0; color: #7b2c43; font-size: 1.25rem; }
+
+.divider {
+  margin: 24px 0;
+  opacity: 0.4;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+
+#questionLine.hidden-line,
+#subtitleLine.hidden-line { display: none; }
+/* Hide upper letter header completely after Yes */
+.letter-panel.after-yes-mode .dedication,
+.letter-panel.after-yes-mode .main-title,
+.letter-panel.after-yes-mode .divider {
+  display: none;
+}
+
+/* Pull content up once header is gone */
+.letter-panel.after-yes-mode {
+  padding-top: 1.4rem;
+}
+
+.letter-message {
+  margin-top: 1.8rem;
+  font-size: 1.6rem;   /* ⬆️ bigger */
+  line-height: 1.9;     /* ⬆️ more breathing space */
+  color: #5c2a3b;
+  font-family: "Dancing Script", "Cormorant Garamond", serif;
+}
+
+.compact-header {
+  text-align: center;
+  font-family: "Great Vibes", "Dancing Script", cursive;
+  font-size: 2.2rem;
+  color: #6a2b3e;
+  margin: 1.2rem 0 0.8rem;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: compactReveal 0.8s ease forwards;
+}
+
+.compact-header .heart {
+  margin: 0 0.3rem;
+}
+
+@keyframes compactReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+.signature {
+  margin-top: 1rem;
+  font-weight: 500;
+  text-align: right;
+  font-family: "Great Vibes", "Dancing Script", cursive;
+  font-size: 1.9rem;
+}
+
+.cta-row {
+  margin-top: 1.2rem;
+  min-height: 132px;
+  position: relative;
+}
+
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 1rem 2.2rem;
+  min-width: 180px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, #ff7aa8, #ff4f90);
+  color: #fff;
+  position: absolute;
+  right: 0;
+  top: 22px;
+  animation: yesGlow 2.8s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+
+.btn-yes:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 14px 32px rgba(255, 88, 150, 0.55);
+}
+
+.yes-heart { font-size: 1.65em; vertical-align: middle; }
+
+.btn-yes.chosen-center {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.btn-no {
+  background: rgba(255, 255, 255, 0.55);
+  color: #6a2b3e;
+  border: 1px solid rgba(120, 60, 80, 0.25);
+  box-shadow: 0 6px 14px rgba(120, 60, 80, 0.15);
+  opacity: 0.85;              /* slightly shy */
+  position: absolute;
+  left: 0;
+  top: 22px;
+}
+
+
+.after-yes {
+  margin-top: 1.6rem;
+  padding: 1.2rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(120, 60, 80, 0.2);
+}
+
+.hidden { display: none !important; }
+
+.reasons-wrap,
+.notes-wrap {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(130, 70, 90, 0.3);
+}
+/* Tighten spacing only for the attraction / reasons section */
+/* tighten the section wrapper so it doesn't push content down so far */
+.reasons-wrap {
+  margin-top: 0.6rem;   /* was 0.8rem */
+  padding-top: 0.4rem;  /* was 0.6rem */
+  text-align: center;
+}
+
+.reasons-wrap { text-align: center; }
+.reason-text { min-height: 2.1rem; margin: 0.45rem 0 0.8rem; color: #6e2f44; text-align: center; }
+.btn-secondary { background: #ffd9e8; color: #661735; min-width: 240px; font-size: 1.05rem; padding: 0.85rem 1.2rem; display: inline-block; margin: 0 auto; }
+.note-display { margin-top: 0.65rem; min-height: 2.8rem; background: rgba(123, 44, 67, 0.12); border-radius: 12px; padding: 0.75rem; color: #5c2a3b; }
+/*.hidden-heart { position: fixed; z-index: 4; border: none; background: transparent; font-size: 1.7rem; cursor: pointer; }*/
+.hidden-heart {
+  position: absolute;           /* 🔑 relative to letter */
+  z-index: 30;                  /* 🔑 above letter content */
+  border: none;
+  background: transparent;
+  font-size: 1.7rem;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0.95;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hidden-heart:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.hidden-heart.clicked {
+  animation: heartReveal 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+
+.music-player {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  width: min(92vw, 320px);
+  max-width: 320px;
+  padding: 1rem 1.1rem;
+  border-radius: 20px;
+  background: rgba(25, 8, 16, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+  z-index: 8;
+  display: grid;
+  gap: 0.8rem;
+  backdrop-filter: blur(10px);
+}
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.track-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #f4c9db;
+}
+
+.track-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffe6f2;
+}
+
+.record-wrap {
+  position: relative;
+  width: 52px;
+  height: 52px;
+}
+
+.record {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #f7b2c9 0 20%, #2a111b 22% 100%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.record-center {
+  position: absolute;
+  inset: 19px;
+  border-radius: 50%;
+  background: #f7d6e5;
+}
+
+.music-player.playing .record {
+  animation: spin 2.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.player-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 0.55rem 0.75rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #7b1f3d;
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+
+.player-progress {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.time {
+  font-size: 0.7rem;
+  color: #fbd6e6;
+}
+
+.progress-bar {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff85b1;
+  cursor: pointer;
+}
+
+.progress-bar::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff85b1;
+  cursor: pointer;
+  border: none;
+}
+
+.player-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.track-count {
+  font-size: 0.75rem;
+  color: #f5cfe0;
+}
+
+.player-btn.ghost {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fbd6e6;
+}
+
+@media (max-width: 640px) {
+  body { padding: 1rem; }
+  .letter-panel { padding: 1.6rem; margin-top: 2rem; }
+  .btn { min-width: 140px; font-size: 1.05rem; }
+  .btn-yes { right: 0; top: 18px; }
+  .btn-no { left: 0; top: 18px; }
+  .cta-row { min-height: 120px; }
+  .subtitle { font-size: 1rem; }
+  .music-player { right: 0.8rem; bottom: 0.8rem; }
+}
+
+/*.letter-panel {
+  opacity: 1 !important;
+}*/
+
+.note-display {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.note-display.updated {
+  animation: noteReveal 0.35s ease forwards;
+}
+
+@keyframes noteReveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.letter-panel.heart-found {
+  animation: softPulse 0.4s ease;
+}
+
+@keyframes softPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.005); }
+  100% { transform: scale(1); }
+}
+
+
+/* Tighten spacing under "Things about you that quietly undo me" */
+/* remove heading top margin (browser default) and keep a small bottom gap */
+.reasons-wrap h3 {
+  margin: 0 0 0.4rem; /* 0 top, 0.4rem bottom */
+}
+
+
+.attraction-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.35rem; /* tighten the gap above the list */
+  text-align: center;
+}
+
+.attraction-list li {
+  opacity: 0;
+  transform: translateY(10px);
+  font-family: "Dancing Script", cursive;
+  font-size: 1.35rem;
+  color: #6a2b3e;
+  margin-bottom: 0.4rem;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.attraction-list li.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.soft-ending {
+  margin-top: 0.6rem;
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+/* ❤️ Name heart bounce (repeatable) */
+.compact-header .heart {
+  display: inline-block;
+  cursor: pointer;
+  transform-origin: center;
+}
+
+.compact-header .heart.bounce {
+  animation: nameHeartBounce 0.9s cubic-bezier(0.22, 1.25, 0.36, 1);
+}
+
+@keyframes nameHeartBounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.45); }
+  65%  { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+
+/* prevent browser text selection / tap highlight on the compact header + heart */
+.compact-header,
+.compact-header .heart {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+/* remove focus outline on the heart if it ever becomes focusable */
+.compact-header .heart:focus {
+  outline: none;
+}
+
+
+/* Time-based presence note — top notification style */
+.presence-note {
+  position: fixed;
+  top: 1.25rem;              /* ⬆ top of page */
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+
+  padding: 0.7rem 1.2rem;
+  border-radius: 14px;
+
+  /* paper-like white */
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(180, 120, 140, 0.18);
+
+  color: #5a2232;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.02rem;
+  letter-spacing: 0.02em;
+
+  box-shadow:
+    0 6px 18px rgba(40, 12, 20, 0.12),
+    0 2px 6px rgba(40, 12, 20, 0.08);
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 420ms ease,
+    transform 420ms ease;
+
+  z-index: 100; /* safely above everything */
+}
+
+/* visible state */
+.presence-note.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Completely flatten spacing for attraction section */
+.reasons-wrap {
+  margin-top: 0.4rem;
+  padding-top: 0;
+  border-top: none; /* 🔑 this is the big one */
+}
+
+.after-yes-text {
+  font-family: "Dancing Script", "Cormorant Garamond", serif;
+  font-size: 1.55rem;
+  line-height: 1.9;
+  color: #5c2a3b;
+  margin: 0.9rem 0;
+  text-align: center;
+}
+
+.after-yes-text.final-line {
+  margin-top: 1.4rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+
+
+.letter-message {
+  line-height: 1.5;
+}
+
+
+
+
+/* -------------------------
+   Tighter / smaller after-yes text
+   Paste this at the end of styles.css to override previous rules
+   ------------------------- */
+
+.after-yes-text {
+  font-size: 1.35rem;   /* medium, readable */
+  line-height: 1.45;   /* tighter but still elegant */
+  margin: 0.5rem 0;    /* reduced vertical gap */
+  text-align: center;
+}
+
+.after-yes-text.final-line {
+  font-size: 1.5rem;   /* slight emphasis */
+  margin-top: 0.8rem; /* reduced gap before final line */
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+
+/* Optional: make the whole "after-yes" panel a bit tighter */
+.after-yes {
+  padding: 0.9rem;       /* reduce the block padding a touch */
+}
