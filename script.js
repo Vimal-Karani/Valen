@@ -24,24 +24,25 @@ const bgMusic = document.getElementById('bgMusic');
 const fallingFlowers = document.getElementById('fallingFlowers');
 
 const tracks = [
-  { name: 'Playful nights', src: 'music/track-03-playful-nights.mp3' },
-  { name: 'Your company', src: 'music/track-04-your-company.mp3' },
-  { name: 'Stolen moments', src: 'music/track-05-stolen-moments.mp3' },
-  { name: 'You feel like home', src: 'music/track-06-you-feel-like-home.mp3' },
-  { name: 'Across lifetimes', src: 'music/track-07-across-lifetimes.mp3' },
-  { name: 'With you', src: 'music/track-08-with-you.mp3' },
-  { name: 'Whispered things', src: 'music/track-09-whispered-things.mp3' },
-  { name: 'In the silence', src: 'music/track-10-in-the-silence.mp3' },
-  { name: 'My constant', src: 'music/track-11-my-constant.mp3' },
-  { name: 'Longing', src: 'music/track-12-longing.mp3' },
-  { name: 'When it rains', src: 'music/track-13-when-it-rains.mp3' },
-  { name: 'Listen close', src: 'music/track-14-listen-close.mp3' },
-  { name: 'Waiting eyes', src: 'music/track-15-waiting-eyes.mp3' },
-  { name: 'Late night energy', src: 'music/track-16-late-night-energy.mp3' },
-  { name: 'Only you', src: 'music/track-17-only-you.mp3' },
-  { name: 'You changed me', src: 'music/track-18-you-changed-me.mp3' },
-  { name: 'After dark', src: 'music/track-19-after-dark.mp3' }
+  { name: 'Chiggy Wiggy ♡', src: 'music/track-03-playful-nights.mp3' },
+  { name: 'Company ♡', src: 'music/track-04-your-company.mp3' },
+  { name: 'Dus Bahane ♡', src: 'music/track-05-stolen-moments.mp3' },
+  { name: 'Enna Sona ♡', src: 'music/track-06-you-feel-like-home.mp3' },
+  { name: 'Janam Janam ♡', src: 'music/track-07-across-lifetimes.mp3' },
+  { name: 'Jo Tum Saath Ho ♡', src: 'music/track-08-with-you.mp3' },
+  { name: 'Kaho Na Kaho ♡', src: 'music/track-09-whispered-things.mp3' },
+  { name: 'Khamoshiyan ♡', src: 'music/track-10-in-the-silence.mp3' },
+  { name: 'Maahi ♡', src: 'music/track-11-my-constant.mp3' },
+  { name: 'Milne Hai Mujhse Aayi ♡', src: 'music/track-12-longing.mp3' },
+  { name: 'Sawan Aaya Hai ♡', src: 'music/track-13-when-it-rains.mp3' },
+  { name: 'Suno Na Sangemarmar ♡', src: 'music/track-14-listen-close.mp3' },
+  { name: 'Tarasti Hain Nigahain ♡', src: 'music/track-15-waiting-eyes.mp3' },
+  { name: 'The Humma Song ♡', src: 'music/track-16-late-night-energy.mp3' },
+  { name: 'Tum Hi Ho ♡', src: 'music/track-17-only-you.mp3' },
+  { name: 'Ye Tune Kya Kiya ♡', src: 'music/track-18-you-changed-me.mp3' },
+  { name: 'Yeh Jism ♡', src: 'music/track-19-after-dark.mp3' }
 ];
+
 
 
 
@@ -434,6 +435,7 @@ letterPanel.classList.add('heart-found');
     );
   });
 })();
+
 
 
 
