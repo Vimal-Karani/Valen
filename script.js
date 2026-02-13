@@ -24,6 +24,8 @@ const bgMusic = document.getElementById('bgMusic');
 const fallingFlowers = document.getElementById('fallingFlowers');
 
 const tracks = [
+  { name: 'Tum Hi Ho ♡', src: 'music/track-17-only-you.mp3' },
+
   { name: 'Chiggy Wiggy ♡', src: 'music/track-03-playful-nights.mp3' },
   { name: 'Company ♡', src: 'music/track-04-your-company.mp3' },
   { name: 'Dus Bahane ♡', src: 'music/track-05-stolen-moments.mp3' },
@@ -38,10 +40,10 @@ const tracks = [
   { name: 'Suno Na Sangemarmar ♡', src: 'music/track-14-listen-close.mp3' },
   { name: 'Tarasti Hain Nigahain ♡', src: 'music/track-15-waiting-eyes.mp3' },
   { name: 'The Humma Song ♡', src: 'music/track-16-late-night-energy.mp3' },
-  { name: 'Tum Hi Ho ♡', src: 'music/track-17-only-you.mp3' },
   { name: 'Ye Tune Kya Kiya ♡', src: 'music/track-18-you-changed-me.mp3' },
   { name: 'Yeh Jism ♡', src: 'music/track-19-after-dark.mp3' }
 ];
+
 
 
 
@@ -435,6 +437,7 @@ letterPanel.classList.add('heart-found');
     );
   });
 })();
+
 
 
 
