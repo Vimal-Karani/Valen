@@ -44,6 +44,13 @@ const tracks = [
   { name: 'Yeh Jism ♡', src: 'music/track-19-after-dark.mp3' }
 ];
 
+function playWithDelay(delayMs = 10000) {
+  setTimeout(() => {
+    if (!playing) {
+      playCurrentTrack();
+    }
+  }, delayMs);
+}
 
 
 
@@ -315,7 +322,8 @@ yesBtn.addEventListener('click', () => {
 
   burstHearts();
   generateHiddenHearts();
-  if (!playing) playCurrentTrack();
+  playWithDelay(10000); // 10 seconds
+
 });
 
 
@@ -437,6 +445,7 @@ letterPanel.classList.add('heart-found');
     );
   });
 })();
+
 
 
 
