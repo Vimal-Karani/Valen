@@ -24,19 +24,25 @@ const bgMusic = document.getElementById('bgMusic');
 const fallingFlowers = document.getElementById('fallingFlowers');
 
 const tracks = [
-  {
-    name: 'Gymnopédie No.1 (Piano)',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/4/45/Erik_Satie_-_Gymnop%C3%A9die_No._1.ogg/Erik_Satie_-_Gymnop%C3%A9die_No._1.ogg.mp3'
-  },
-  {
-    name: 'Calm Piano',
-    src: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8d70059f4.mp3?filename=romantic-piano-ambient-11103.mp3'
-  },
-  {
-    name: 'Soft Love Piano',
-    src: 'https://cdn.pixabay.com/download/audio/2022/11/17/audio_882821cf6f.mp3?filename=sad-piano-romantic-126095.mp3'
-  }
+  { name: 'Playful nights', src: 'music/track-03-playful-nights.mp3' },
+  { name: 'Your company', src: 'music/track-04-your-company.mp3' },
+  { name: 'Stolen moments', src: 'music/track-05-stolen-moments.mp3' },
+  { name: 'You feel like home', src: 'music/track-06-you-feel-like-home.mp3' },
+  { name: 'Across lifetimes', src: 'music/track-07-across-lifetimes.mp3' },
+  { name: 'With you', src: 'music/track-08-with-you.mp3' },
+  { name: 'Whispered things', src: 'music/track-09-whispered-things.mp3' },
+  { name: 'In the silence', src: 'music/track-10-in-the-silence.mp3' },
+  { name: 'My constant', src: 'music/track-11-my-constant.mp3' },
+  { name: 'Longing', src: 'music/track-12-longing.mp3' },
+  { name: 'When it rains', src: 'music/track-13-when-it-rains.mp3' },
+  { name: 'Listen close', src: 'music/track-14-listen-close.mp3' },
+  { name: 'Waiting eyes', src: 'music/track-15-waiting-eyes.mp3' },
+  { name: 'Late night energy', src: 'music/track-16-late-night-energy.mp3' },
+  { name: 'Only you', src: 'music/track-17-only-you.mp3' },
+  { name: 'You changed me', src: 'music/track-18-you-changed-me.mp3' },
+  { name: 'After dark', src: 'music/track-19-after-dark.mp3' }
 ];
+
 
 
 
@@ -428,6 +434,7 @@ letterPanel.classList.add('heart-found');
     );
   });
 })();
+
 
 
 
